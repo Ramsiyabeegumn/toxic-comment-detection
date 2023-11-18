@@ -1,0 +1,47 @@
+server/__pycache__
+server/venv
+
+# Miscellaneous
+toxicdetection/*.class
+toxicdetection/*.log
+toxicdetection/*.pyc
+toxicdetection/*.swp
+toxicdetection/.DS_Store
+toxicdetection/.atom/
+toxicdetection/.buildlog/
+toxicdetection/.history
+toxicdetection/.svn/
+toxicdetection/migrate_working_dir/
+
+# IntelliJ related
+toxicdetection/*.iml
+toxicdetection/*.ipr
+toxicdetection/*.iws
+toxicdetection/.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+toxicdetection/**/doc/api/
+toxicdetection/**/ios/Flutter/.last_build_id
+toxicdetection/.dart_tool/
+toxicdetection/.flutter-plugins
+toxicdetection/.flutter-plugins-dependencies
+toxicdetection/.packages
+toxicdetection/.pub-cache/
+toxicdetection/.pub/
+toxicdetection/build/
+
+# Symbolication related
+toxicdetection/app.*.symbols
+
+# Obfuscation related
+toxicdetection/app.*.map.json
+
+# Android Studio will place build artifacts here
+toxicdetection/android/app/debug
+toxicdetection/android/app/profile
+toxicdetection/android/app/release

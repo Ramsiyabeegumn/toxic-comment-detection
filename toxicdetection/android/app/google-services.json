@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "196890281658",
+    "project_id": "toxic-comment-detection-26670",
+    "storage_bucket": "toxic-comment-detection-26670.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196890281658:android:14204f15dfcf9c71a72483",
+        "android_client_info": {
+          "package_name": "com.example.toxicdetection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "196890281658-p0ve1a4tn3330soj9uh6ugrtodop7loj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.toxicdetection",
+            "certificate_hash": "cbbceaf3853e1f1cee17e89bd319c781ca35b75f"
+          }
+        },
+        {
+          "client_id": "196890281658-8o07h4jcnmu4fjkvnsc347ehd7jc5g16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr3FZTMGh-kRyVyydq4KnETRshZzo_OIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "196890281658-8o07h4jcnmu4fjkvnsc347ehd7jc5g16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
