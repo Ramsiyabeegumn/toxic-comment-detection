@@ -84,7 +84,25 @@ class _CommentModalSheetState extends State<CommentModalSheet> {
       }
       commentText.clear();
     } else {
-      print('toxic cannot be posted');
+      final comment = {
+        "user_name": widget.name,
+        "comment_text": commentText.text,
+        "dp_url": widget.dpurl,
+      };
+
+      try {
+        await FirebaseFirestore.instance
+            .collection("comments")
+            .doc('rejected')
+            .set({
+          "comments": FieldValue.arrayUnion(
+            [comment],
+          ),
+        }, SetOptions(merge: true));
+      } catch (e) {
+        e.toString();
+      }
+      commentText.clear();
     }
 
     Navigator.of(context).pop();

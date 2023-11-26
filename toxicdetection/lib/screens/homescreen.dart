@@ -2,8 +2,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:toxicdetection/screens/rejectedMessages.dart';
 import 'package:transparent_image/transparent_image.dart';
-
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import '../post_box.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +15,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late List<ItemModel> menuItems;
+  CustomPopupMenuController _controller = CustomPopupMenuController();
+
+  @override
+  void initState() {
+    menuItems = [
+      ItemModel('Messages', Icons.chat_bubble),
+      ItemModel('Logout', Icons.group_add),
+    ];
+    super.initState();
+  }
+
   void signOut() {
     FirebaseAuth.instance.signOut();
   }
@@ -72,22 +85,102 @@ class _HomeScreenState extends State<HomeScreen> {
                 elevation: 0,
                 title: Text('Hello $username'),
                 actions: [
-                  GestureDetector(
-                    onTap: () {
-                      FirebaseAuth.instance.signOut();
-                    },
-                    child: CircleAvatar(
-                      radius: 20,
-                      child: ClipOval(
-                        child: FadeInImage.memoryNetwork(
-                          placeholder: kTransparentImage,
-                          image: imageUrl,
-                          fit: BoxFit.cover,
-                          width: 36,
-                          height: 36,
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     FirebaseAuth.instance.signOut();
+                  //   },
+                  //   child: CircleAvatar(
+                  //     radius: 20,
+                  //     child: ClipOval(
+                  //       child: FadeInImage.memoryNetwork(
+                  //         placeholder: kTransparentImage,
+                  //         image: imageUrl,
+                  //         fit: BoxFit.cover,
+                  //         width: 36,
+                  //         height: 36,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  CustomPopupMenu(
+                    child: Container(
+                      child: CircleAvatar(
+                        radius: 20,
+                        child: ClipOval(
+                          child: FadeInImage.memoryNetwork(
+                            placeholder: kTransparentImage,
+                            image: imageUrl,
+                            fit: BoxFit.cover,
+                            width: 36,
+                            height: 36,
+                          ),
+                        ),
+                      ),
+                      // padding: EdgeInsets.all(20),
+                    ),
+                    menuBuilder: () => ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Container(
+                        color: const Color(0xFF4C4C4C),
+                        child: IntrinsicWidth(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: menuItems
+                                .map(
+                                  (item) => GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: () {
+                                      print("onTap");
+                                      if (item.title == 'Logout') {
+                                        FirebaseAuth.instance.signOut();
+                                      } else {
+                                        if (item.title == 'Messages') {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      RejectedMessages()));
+                                        }
+                                      }
+                                      _controller.hideMenu();
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            item.icon,
+                                            size: 15,
+                                            color: Colors.white,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              margin: EdgeInsets.only(left: 10),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10),
+                                              child: Text(
+                                                item.title,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
                         ),
                       ),
                     ),
+                    pressType: PressType.singleClick,
+                    verticalMargin: -10,
+                    controller: _controller,
                   ),
                   SizedBox(
                     width: 10,
@@ -104,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     bio:
                         "Ignorance is blis✨. Find what you love. Do what you love.",
                     imageurl:
-                        "https://img.freepik.com/free-photo/brunette-woman-eating-salad_23-2148173212.jpg?w=1060&t=st=1697380186~exp=1697380786~hmac=99db5651d386b0bfc551eb5271df3548ed7d6c60e93f116db3e055ddf9a724b0",
+                        "https://img.freepik.com/free-photo/animal-lizard-nature-multi-colored-close-up-generative-ai_188544-9072.jpg?w=1380&t=st=1700300478~exp=1700301078~hmac=9636dd086da947eb91d51a9d91118bf5bd17605166ac603971a5fe82a6b6afb9",
                     location: "Transalvania",
                     name: username,
                   );
@@ -114,4 +207,11 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         });
   }
+}
+
+class ItemModel {
+  String title;
+  IconData icon;
+
+  ItemModel(this.title, this.icon);
 }
