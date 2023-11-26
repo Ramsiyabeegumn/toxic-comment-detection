@@ -128,50 +128,88 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: menuItems
                                 .map(
                                   (item) => GestureDetector(
-                                    behavior: HitTestBehavior.translucent,
-                                    onTap: () {
-                                      print("onTap");
-                                      if (item.title == 'Logout') {
-                                        FirebaseAuth.instance.signOut();
-                                      } else {
-                                        if (item.title == 'Messages') {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      RejectedMessages()));
+                                      behavior: HitTestBehavior.translucent,
+                                      onTap: () {
+                                        print("onTap");
+                                        if (item.title == 'Logout') {
+                                          FirebaseAuth.instance.signOut();
+                                        } else {
+                                          if (item.title == 'Messages') {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        RejectedMessages()));
+                                          }
                                         }
-                                      }
-                                      _controller.hideMenu();
-                                    },
-                                    child: Container(
-                                      height: 40,
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            item.icon,
-                                            size: 15,
-                                            color: Colors.white,
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              margin: EdgeInsets.only(left: 10),
+                                        _controller.hideMenu();
+                                      },
+                                      child: item.title == 'Messages'
+                                          ? FirebaseAuth.instance.currentUser!
+                                                      .uid ==
+                                                  'ZKdxIXM5C0gDRim3qnQzxgRiqvI2'
+                                              ? Container(
+                                                  height: 40,
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Icon(
+                                                        item.icon,
+                                                        size: 15,
+                                                        color: Colors.white,
+                                                      ),
+                                                      Expanded(
+                                                        child: Container(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  left: 10),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  vertical: 10),
+                                                          child: Text(
+                                                            item.title,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 12,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              : Container()
+                                          : Container(
+                                              height: 40,
                                               padding: EdgeInsets.symmetric(
-                                                  vertical: 10),
-                                              child: Text(
-                                                item.title,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
-                                                ),
+                                                  horizontal: 20),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Icon(
+                                                    item.icon,
+                                                    size: 15,
+                                                    color: Colors.white,
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 10),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10),
+                                                      child: Text(
+                                                        item.title,
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                            )),
                                 )
                                 .toList(),
                           ),
